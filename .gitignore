@@ -1,3 +1,7 @@
 # Custom
 *.rl
-/notes
+/.notes
+
+# AI
+.agents
+.claude
