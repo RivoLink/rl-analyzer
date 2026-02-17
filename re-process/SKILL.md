@@ -1,0 +1,42 @@
+---
+name: re-process
+description: >
+  Traite les corrections identifiees dans le rapport de validation d'une analyse.
+  Modifie le code pour resoudre les points du rapport sans faire d'analyse supplementaire.
+  Utiliser quand l'utilisateur invoque "rl-analyzer:re-process" avec un chemin vers un fichier
+  ask ou ask-analysis apres qu'un validate ait produit un rapport "Non valide".
+---
+
+# rl-analyzer:re-process
+
+Traiter les corrections identifiees dans le rapport de validation.
+
+## Arguments
+
+- `<path/to/ask.txt|ask-analysis.md>` : Chemin vers le fichier de demande ou directement vers l'analyse.
+- `<comment>` : Informations supplementaires (optionnel).
+
+## Resolution du parametre
+
+- Si le parametre est un fichier de demande (`ask.txt`, `ask.md`), retrouver l'analyse correspondante dans `.notes/claude/outs/` (meme nom sans extension + `-analysis.md`).
+- Si le parametre est directement un fichier `*-analysis.md`, l'utiliser et retrouver la demande correspondante dans `.notes/claude/asks/` (meme nom sans le suffixe `-analysis`, au format `.txt` ou `.md`).
+
+## Prerequis
+
+- L'analyse correspondante doit exister dans `.notes/claude/outs/`. Si elle est absente, **demander a l'utilisateur** de d'abord produire une analyse.
+- L'analyse doit contenir une section **"Rapport de validation"**. Si elle est absente, **demander a l'utilisateur** de d'abord lancer une validation.
+- Ne pas continuer si l'un de ces prerequis n'est pas rempli.
+
+## Comportement
+
+1. Lire la section **"Rapport de validation"** dans l'analyse.
+2. Traiter chaque point/note identifie dans le rapport.
+3. Appliquer les corrections de code necessaires.
+4. Respecter les **normes et standards** du code existant dans le projet.
+5. Suivre les **bonnes pratiques** definies dans `.notes/claude/docs/best-practices.md` si le fichier existe.
+
+## Regles
+
+- **Modifier le code** uniquement pour traiter les points du rapport de validation.
+- **Ne faire aucune analyse.** Ne pas prendre de decisions en dehors du perimetre du rapport.
+- **Ne pas modifier la section "Rapport de validation".** Sa mise a jour est le role du skill de validation.
