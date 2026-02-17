@@ -89,12 +89,14 @@ Traite les corrections identifiees dans le "Rapport de validation". Modifie le c
 ```
 init ─► best-practices ─► analysis ◄──► review ─► process ─► validate
                                                                  │
-                                                          Non valide ?
+                                                                 ▼
+                                                            Non valide ?
                                                                  │
                                                                  ▼
-                                                  validate ◄─ re-process
+                                                 validate ◄─ re-process
                                                      │
-                                                Valide ? ──► Termine
+                                                     ▼
+                                                  Valide ? ─► Termine
 ```
 
 **Deux boucles :**
