@@ -2,14 +2,18 @@
 name: process
 description: >
   Realise les modifications de code selon une analyse existante.
-argument-hint: <path/to/ask.txt|ask-analysis.md> [comment]
-disable-model-invocation: true
+  Utiliser quand l'utilisateur invoque "rl-analyzer:process" avec un chemin vers un fichier
+  ask ou ask-analysis pour appliquer les changements decrits dans l'analyse.
 ---
+
+# rl-analyzer:process
 
 Realiser les modifications de code en suivant strictement une analyse existante.
 
-**Parametre :** `$0`
-**Informations supplementaires :** `$ARGUMENTS`
+## Arguments
+
+- `<path/to/ask.txt|ask-analysis.md>` : Chemin vers le fichier de demande ou directement vers l'analyse.
+- `<comment>` : Informations supplementaires (optionnel).
 
 ## Resolution du parametre
 

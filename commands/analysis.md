@@ -3,14 +3,18 @@ name: analysis
 description: >
   Analyse une demande ou tache decrite dans un fichier ask sans modifier le code source.
   Produit une analyse detaillee avec table QA dans .notes/claude/outs/.
-argument-hint: <path/to/ask.txt> [comment]
-disable-model-invocation: true
+  Utiliser quand l'utilisateur invoque "rl-analyzer:analysis" avec un chemin vers un fichier
+  de demande et un commentaire optionnel.
 ---
+
+# rl-analyzer:analysis
 
 Analyser une demande ou une tache sans modifier le code source.
 
-**Fichier de demande :** `$0`
-**Informations supplementaires :** `$ARGUMENTS`
+## Arguments
+
+- `<path/to/ask.txt>` : Chemin vers le fichier de demande (normalement dans `.notes/claude/asks/`, generalement au format `.txt`, peut aussi etre `.md`).
+- `<comment>` : Informations supplementaires (optionnel).
 
 ## Fichier de sortie
 
@@ -20,8 +24,8 @@ Le resultat est enregistre dans `.notes/claude/outs/` avec le meme nom que la so
 
 ## Comportement
 
-1. Lire et analyser la demande decrite dans le fichier de demande.
-2. Prendre en compte les informations supplementaires si fournies.
+1. Lire et analyser la demande decrite dans `<path/to/ask.txt>`.
+2. Prendre en compte les informations supplementaires fournies dans `<comment>`.
 3. Si le fichier de sortie existe deja, verifier s'il contient une section **"Rapport de revue"**. Si oui :
    - Lire chaque incoherence et question identifiee dans le rapport de revue.
    - Corriger les points concernes dans l'analyse (reformuler, completer ou supprimer les parties incoherentes).
@@ -45,5 +49,5 @@ Le resultat est enregistre dans `.notes/claude/outs/` avec le meme nom que la so
 
 ## Regles
 
-- **Ne jamais modifier le code source.** Cette commande produit uniquement une analyse.
+- **Ne jamais modifier le code source.** Ce skill produit uniquement une analyse.
 - **Ne jamais remplir** les colonnes Etat et Screenshot de la table QA. Elles sont reservees a une validation manuelle.

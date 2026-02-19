@@ -3,14 +3,18 @@ name: re-process
 description: >
   Traite les corrections identifiees dans le rapport de validation d'une analyse.
   Modifie le code pour resoudre les points du rapport sans faire d'analyse supplementaire.
-argument-hint: <path/to/ask.txt|ask-analysis.md> [comment]
-disable-model-invocation: true
+  Utiliser quand l'utilisateur invoque "rl-analyzer:re-process" avec un chemin vers un fichier
+  ask ou ask-analysis apres qu'un validate ait produit un rapport "Non valide".
 ---
+
+# rl-analyzer:re-process
 
 Traiter les corrections identifiees dans le rapport de validation.
 
-**Parametre :** `$0`
-**Informations supplementaires :** `$ARGUMENTS`
+## Arguments
+
+- `<path/to/ask.txt|ask-analysis.md>` : Chemin vers le fichier de demande ou directement vers l'analyse.
+- `<comment>` : Informations supplementaires (optionnel).
 
 ## Resolution du parametre
 
@@ -35,4 +39,4 @@ Traiter les corrections identifiees dans le rapport de validation.
 
 - **Modifier le code** uniquement pour traiter les points du rapport de validation.
 - **Ne faire aucune analyse.** Ne pas prendre de decisions en dehors du perimetre du rapport.
-- **Ne pas modifier la section "Rapport de validation".** Sa mise a jour est le role de la commande validate.
+- **Ne pas modifier la section "Rapport de validation".** Sa mise a jour est le role du skill de validation.
