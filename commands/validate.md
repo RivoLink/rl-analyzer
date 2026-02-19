@@ -1,21 +1,17 @@
 ---
 name: validate
 description: >
-  Effectue une revue critique des modifications de code en cours, sans modifier le code source.
+  Effectue une revue critique des modifications de code, sans modifier le code source.
   Verifie la coherence avec la demande et l'analyse, les bonnes pratiques et les regressions.
   Produit un rapport de validation (Valide/Non valide) dans l'analyse.
-  Utiliser quand l'utilisateur invoque "rl-analyzer:validate" avec un chemin vers un fichier
-  ask ou ask-analysis.
+argument-hint: <path/to/ask.txt|ask-analysis.md> [comment]
+disable-model-invocation: true
 ---
-
-# rl-analyzer:validate
 
 Effectuer une revue critique des modifications de code sans modifier le code source.
 
-## Arguments
-
-- `<path/to/ask.txt|ask-analysis.md>` : Chemin vers le fichier de demande ou directement vers l'analyse.
-- `<comment>` : Informations supplementaires (optionnel).
+**Parametre :** `$0`
+**Informations supplementaires :** `$ARGUMENTS`
 
 ## Resolution du parametre
 
@@ -42,4 +38,4 @@ L'analyse correspondante doit exister dans `.notes/claude/outs/`. Si elle est ab
 
 ## Regles
 
-- **Ne jamais modifier le code source.** Ce skill produit uniquement un rapport de validation.
+- **Ne jamais modifier le code source.** Cette commande produit uniquement un rapport de validation.
