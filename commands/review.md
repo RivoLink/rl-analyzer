@@ -3,18 +3,14 @@ name: review
 description: >
   Effectue une revue critique de l'analyse associee a une demande, sans modifier le code source.
   Detecte les incoherences, regressions potentielles et pose des questions.
-  Utiliser quand l'utilisateur invoque "rl-analyzer:review" avec un chemin vers un fichier
-  ask ou ask-analysis.
+argument-hint: <path/to/ask.txt|ask-analysis.md> [comment]
+disable-model-invocation: true
 ---
-
-# rl-analyzer:review
 
 Effectuer une revue critique d'une analyse existante sans modifier le code source.
 
-## Arguments
-
-- `<path/to/ask.txt|ask-analysis.md>` : Chemin vers le fichier de demande ou directement vers l'analyse.
-- `<comment>` : Informations supplementaires (optionnel).
+**Parametre :** `$0`
+**Informations supplementaires :** `$ARGUMENTS`
 
 ## Resolution du parametre
 
@@ -36,4 +32,4 @@ L'analyse correspondante doit exister dans `.notes/claude/outs/`. Si elle est ab
 
 ## Regles
 
-- **Ne jamais modifier le code source.** Ce skill produit uniquement une revue.
+- **Ne jamais modifier le code source.** Cette commande produit uniquement une revue.

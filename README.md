@@ -1,87 +1,62 @@
 # RL Analyzer
 
-Ensemble de skills pour agents IA. Structure et pilote le cycle d'analyse, de revue, d'implementation et de validation d'une demande ou tache.
+Ensemble de commandes pour agents IA. Structure et pilote le cycle d'analyse, de revue, d'implementation et de validation d'une demande ou tache.
 
 ## Installation
 
-### Claude Code
+### Mode skill (commande unique)
+
+Clone le repo complet. Toutes les commandes sont accessibles via `/rl-analyzer <commande>`.
 
 ```bash
-cd ~/.claude/skills
+# Claude Code
+cd .claude/skills
 git clone https://github.com/RivoLink/rl-analyzer.git
 ```
 
-### Codex CLI
-
 ```bash
-cd ~/.agents/skills
+# Codex CLI
+cd .agents/skills
 git clone https://github.com/RivoLink/rl-analyzer.git
 ```
 
-## Skills
+### Mode commandes individuelles
 
-### `help`
+Copie les fichiers de `commands/` dans `.claude/commands/rl-analyzer/` du projet. Chaque commande est accessible via `/rl-analyzer:<nom>`.
 
-Affiche la liste des skills disponibles et le flux d'analyse recommande.
-
-```
-/rl-analyzer:help
-```
-
-### `init`
-
-Initialise l'environnement de travail du projet : ajoute les entrees `*.rl` et `/.notes` au `.gitignore`, puis cree l'arborescence `.notes/claude/` (asks, docs, imgs, outs).
-
-```
-/rl-analyzer:init
+```bash
+# Claude Code
+curl -fsSL https://github.com/rivolink/rl-analyzer/raw/main/commands.sh | sh -s -- --claude
 ```
 
-### `best-practices`
-
-Ajoute des bonnes pratiques au fichier `.notes/claude/docs/best-practices.md`. Les pratiques sont organisees par sections thematiques.
-
-```
-/rl-analyzer:best-practices toujours utiliser 4 espaces pour l'indentation
+```bash
+# Codex CLI
+curl -fsSL https://github.com/rivolink/rl-analyzer/raw/main/commands.sh | sh -s -- --codex
 ```
 
-### `analysis`
+## Commandes
 
-Analyse une demande ou tache decrite dans un fichier ask sans modifier le code source. Produit une analyse detaillee avec une table QA de 10 tests dans `.notes/claude/outs/`. Si un "Rapport de revue" existe dans l'analyse, il traite les corrections et integre les reponses aux questions.
+| Mode skill | Mode commandes | Description |
+|------------|---------------|-------------|
+| `/rl-analyzer help` | `/rl-analyzer:help` | Affiche les commandes disponibles |
+| `/rl-analyzer init` | `/rl-analyzer:init` | Initialise l'environnement de travail |
+| `/rl-analyzer best-practices <comment>` | `/rl-analyzer:best-practices <comment>` | Ajoute des bonnes pratiques |
+| `/rl-analyzer analysis <path> [comment]` | `/rl-analyzer:analysis <path> [comment]` | Analyse une demande |
+| `/rl-analyzer review <path> [comment]` | `/rl-analyzer:review <path> [comment]` | Revue critique de l'analyse |
+| `/rl-analyzer process <path> [comment]` | `/rl-analyzer:process <path> [comment]` | Applique les modifications de code |
+| `/rl-analyzer validate <path> [comment]` | `/rl-analyzer:validate <path> [comment]` | Revue critique du code |
+| `/rl-analyzer re-process <path> [comment]` | `/rl-analyzer:re-process <path> [comment]` | Corrige selon le rapport de validation |
 
-```
-/rl-analyzer:analysis .notes/claude/asks/feature.txt
-```
-
-### `review`
-
-Effectue une revue critique de l'analyse : detecte les incoherences entre la demande et l'analyse, les regressions potentielles, et pose des questions. Ajoute une section "Rapport de revue" a l'analyse. Ne modifie pas le code.
-
-```
-/rl-analyzer:review .notes/claude/asks/feature.txt
-```
-
-### `process`
-
-Applique les modifications de code selon l'analyse, en respectant les normes du projet et les bonnes pratiques.
+## Exemples
 
 ```
-/rl-analyzer:process .notes/claude/asks/feature.txt
-```
-
-### `validate`
-
-Effectue une revue critique des modifications de code : verifie la coherence avec la demande et l'analyse, les bonnes pratiques et les regressions. Produit un "Rapport de validation" (Valide/Non valide) dans l'analyse. Ne modifie pas le code.
-
-```
-/rl-analyzer:validate .notes/claude/asks/feature.txt
-```
-
-### `re-process`
-
-Traite les corrections identifiees dans le "Rapport de validation". Modifie le code uniquement pour resoudre les points du rapport, sans analyse supplementaire.
-
-```
-/rl-analyzer:re-process .notes/claude/asks/feature.txt
+/rl-analyzer init
+/rl-analyzer best-practices toujours utiliser 4 espaces pour l'indentation
+/rl-analyzer analysis .notes/claude/asks/feature.txt
+/rl-analyzer review .notes/claude/asks/feature.txt
+/rl-analyzer process .notes/claude/asks/feature.txt
+/rl-analyzer validate .notes/claude/asks/feature.txt
+/rl-analyzer re-process .notes/claude/asks/feature.txt
 ```
 
 ## Workflow
