@@ -18,25 +18,25 @@ case "$1" in
     ;;
 esac
 
-echo "Creating target directory..."
+echo "Creating target directory"
 mkdir -p "$TARGET_DIR"
 cd "$TARGET_DIR"
 
-echo "Cloning repository..."
+echo "Cloning repository"
 git clone "$REPO_URL" .
 
-echo "Removing git metadata..."
+echo "Removing git metadata"
 rm -rf .git
 
-echo "Keeping only markdown files..."
-find . -type f ! -name "*.md" -delete
+echo "Removing everything except commands/"
+find . -mindepth 1 -maxdepth 1 ! -name "commands" -exec rm -rf {} +
 
-echo "Moving command markdown files to root..."
+echo "Moving command markdown files to root"
 if [ -d "commands" ]; then
   mv commands/*.md . 2>/dev/null || true
 fi
 
-echo "Cleaning empty directories..."
+echo "Cleaning empty directories"
 find . -type d -empty -delete
 
 echo "Done"
