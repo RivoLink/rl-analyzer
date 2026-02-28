@@ -34,6 +34,27 @@ curl -fsSL https://github.com/rivolink/rl-analyzer/raw/main/commands.sh | sh -s 
 curl -fsSL https://github.com/rivolink/rl-analyzer/raw/main/commands.sh | sh -s -- --codex
 ```
 
+## Configuration pour Termux
+
+Pour que la commande `/rl-analyzer` soit automatiquement disponible au démarrage de chaque session dans Termux, ajouter la configuration suivante au fichier `~/.claude/settings.json` :
+
+```json
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cat /data/data/com.termux/files/home/.claude/skills/rl-analyzer/SKILL.md"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
 ## Commandes
 
 | Mode skill | Mode commandes | Description |
