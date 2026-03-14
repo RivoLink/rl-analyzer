@@ -3,20 +3,7 @@
 set -e
 
 REPO_URL="https://github.com/RivoLink/rl-analyzer.git"
-
-# Parse argument
-case "$1" in
-  --claude)
-    TARGET_DIR=".claude/commands/rl-analyzer"
-    ;;
-  --codex)
-    TARGET_DIR=".agent/commands/rl-analyzer"
-    ;;
-  *)
-    echo "Usage: $0 --claude | --codex"
-    exit 1
-    ;;
-esac
+TARGET_DIR=".claude/commands/rl-analyzer"
 
 echo "Creating target directory"
 mkdir -p "$TARGET_DIR"
