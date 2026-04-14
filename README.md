@@ -57,6 +57,7 @@ Pour que la commande `/rl-analyzer` soit automatiquement disponible au démarrag
 | `/rl-analyzer help` | Affiche les commandes disponibles |
 | `/rl-analyzer init` | Initialise l'environnement de travail |
 | `/rl-analyzer best-practices <comment>` | Ajoute des bonnes pratiques |
+| `/rl-analyzer asking <prompt>` | Cree un fichier de demande a partir d'un prompt |
 | `/rl-analyzer analysis <path> [comment]` | Analyse une demande |
 | `/rl-analyzer review <path> [comment]` | Revue critique de l'analyse |
 | `/rl-analyzer process <path> [comment]` | Applique les modifications de code |
@@ -68,6 +69,7 @@ Pour que la commande `/rl-analyzer` soit automatiquement disponible au démarrag
 ```
 # Claude Code
 /rl-analyzer init
+/rl-analyzer asking Ajouter un endpoint /health a l'API
 /rl-analyzer analysis .notes/claude/asks/feature.txt
 /rl-analyzer review .notes/claude/asks/feature.txt
 /rl-analyzer process .notes/claude/asks/feature.txt
@@ -75,6 +77,7 @@ Pour que la commande `/rl-analyzer` soit automatiquement disponible au démarrag
 
 # Codex Cli
 $rl-analyzer init
+$rl-analyzer asking Ajouter un endpoint /health a l'API
 $rl-analyzer analysis .notes/claude/asks/feature.txt
 $rl-analyzer review .notes/claude/asks/feature.txt
 $rl-analyzer process .notes/claude/asks/feature.txt
@@ -86,6 +89,7 @@ $rl-analyzer validate .notes/claude/asks/feature.txt
 ```
 # Claude Code
 /rl-analyzer:init
+/rl-analyzer:asking Ajouter un endpoint /health a l'API
 /rl-analyzer:analysis .notes/claude/asks/feature.txt
 /rl-analyzer:review .notes/claude/asks/feature.txt
 /rl-analyzer:process .notes/claude/asks/feature.txt
@@ -95,7 +99,7 @@ $rl-analyzer validate .notes/claude/asks/feature.txt
 ## Workflow
 
 ```
-init ─► best-practices ─► analysis ◄──► review ─► process ─► validate
+init ─► best-practices ─► asking ─► analysis ◄──► review ─► process ─► validate
                                                                  │
                                                                  ▼
                                                             Non valide ?
