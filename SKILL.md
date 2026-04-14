@@ -108,7 +108,7 @@ Creer un fichier de demande a partir du prompt utilisateur.
    - Conserver uniquement les caracteres `[a-zA-Z0-9]`, passer en minuscules.
    - Remplacer tout autre caractere (espaces, ponctuation, accents, symboles) par `-`.
    - Fusionner les tirets consecutifs, retirer les tirets de debut/fin.
-   - Tronquer le slug a **60 caracteres maximum** (limite appliquee au slug seul, avant tout suffixe). Retrimer les tirets de fin apres troncature.
+   - Tronquer le slug a **35 caracteres maximum** (limite appliquee au slug seul, avant tout suffixe). Retrimer les tirets de fin apres troncature.
 4. Cible : `.notes/claude/asks/<slug>.txt`.
 5. **Collision de nom** : si `<slug>.txt` existe deja, utiliser une **indexation numerique** incrementale (`<slug>-1.txt`, `<slug>-2.txt`, ...) jusqu'a obtenir un nom libre. Pas d'ecrasement.
 6. Creer le dossier `.notes/claude/asks/` s'il n'existe pas.
