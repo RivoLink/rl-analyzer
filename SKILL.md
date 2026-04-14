@@ -3,7 +3,7 @@ name: rl-analyzer
 description: >
   Ensemble de commandes pour structurer et piloter le cycle d'analyse, de revue, d'implementation
   et de validation d'une demande ou tache. Commandes disponibles : help, init, best-practices,
-  analysis, review, process, validate, re-process.
+  asking, analysis, review, process, validate, re-process.
 argument-hint: <commande> [arguments]
 disable-model-invocation: true
 ---
@@ -31,18 +31,19 @@ Afficher le message suivant a l'utilisateur :
 
 1. **init** — Initialise l'environnement de travail du projet.
 2. **best-practices** `<comment>` — Ajoute des bonnes pratiques.
-3. **analysis** `<path/to/ask.txt>` `<comment>` — Analyse une demande sans modifier le code.
-4. **review** `<path>` `<comment>` — Revue critique de l'analyse.
-5. **process** `<path>` `<comment>` — Applique les modifications de code.
-6. **validate** `<path>` `<comment>` — Revue critique des modifications de code.
-7. **re-process** `<path>` `<comment>` — Corrige le code selon le rapport de validation.
+3. **asking** `<prompt>` — Cree un fichier de demande a partir d'un prompt.
+4. **analysis** `<path/to/ask.txt>` `<comment>` — Analyse une demande sans modifier le code.
+5. **review** `<path>` `<comment>` — Revue critique de l'analyse.
+6. **process** `<path>` `<comment>` — Applique les modifications de code.
+7. **validate** `<path>` `<comment>` — Revue critique des modifications de code.
+8. **re-process** `<path>` `<comment>` — Corrige le code selon le rapport de validation.
 
 **Syntaxe :** `/rl-analyzer <commande> [arguments]`
 
 **Flux recommande :**
 
 ```
-analysis <──> review ──> process ──> validate <──> re-process
+asking ──> analysis <──> review ──> process ──> validate <──> re-process
 ```
 
 - **Boucle 1** : `analysis` et `review` jusqu'a ce que l'analyse soit coherente.
@@ -87,6 +88,40 @@ Ajouter des bonnes pratiques au fichier de reference du projet.
 2. Ajouter les bonnes pratiques decrites dans `<comment>`, formulees de maniere concise.
 3. Organiser les ajouts par sections thematiques si applicable.
 4. Confirmer a l'utilisateur les pratiques ajoutees.
+
+---
+
+## Commande : asking
+
+Creer un fichier de demande a partir du prompt utilisateur.
+
+**Arguments :**
+- `<prompt>` — Prompt libre decrivant la demande.
+
+**Fichier de sortie :** `.notes/claude/asks/<slug>.txt`.
+
+**Comportement :**
+
+1. Si le prompt est vide, **demander interactivement** a l'utilisateur de fournir un prompt. Ne pas continuer tant qu'un prompt non vide n'est pas obtenu.
+2. **Reformuler** le prompt pour plus de clarte tout en conservant strictement le sens d'origine : corriger la syntaxe, clarifier les tournures ambigues, retirer les typos. Ne pas ajouter d'information absente de l'original.
+3. Generer un nom de fichier en **kebab-case** derive du prompt (slug) :
+   - Conserver uniquement les caracteres `[a-zA-Z0-9]`, passer en minuscules.
+   - Remplacer tout autre caractere (espaces, ponctuation, accents, symboles) par `-`.
+   - Fusionner les tirets consecutifs, retirer les tirets de debut/fin.
+   - Tronquer le slug a **60 caracteres maximum** (limite appliquee au slug seul, avant tout suffixe). Retrimer les tirets de fin apres troncature.
+4. Cible : `.notes/claude/asks/<slug>.txt`.
+5. **Collision de nom** : si `<slug>.txt` existe deja, utiliser une **indexation numerique** incrementale (`<slug>-1.txt`, `<slug>-2.txt`, ...) jusqu'a obtenir un nom libre. Pas d'ecrasement.
+6. Creer le dossier `.notes/claude/asks/` s'il n'existe pas.
+7. Ecrire dans le fichier le **prompt reformule** (texte brut, sans en-tete, sans metadonnees).
+8. Afficher a l'utilisateur :
+   - Le chemin relatif cree : `.notes/claude/asks/<slug>.txt`.
+   - La commande pour enchainer : `/rl-analyzer analysis .notes/claude/asks/<slug>.txt`.
+
+**Regles :**
+- **Ne jamais modifier le code source.** Cette commande ne produit qu'un fichier ask.
+- **Ne pas declencher l'analyse automatiquement.** Se contenter de la proposer.
+- **Ne pas ajouter d'en-tete** dans le fichier (pas de date, pas d'auteur, pas de titre).
+- **Ne pas alterer le sens du prompt** lors de la reformulation.
 
 ---
 
