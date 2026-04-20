@@ -32,8 +32,7 @@ Creer un fichier de demande a partir du prompt utilisateur.
    - Ligne 1 : `Fichier cree :` suivi du chemin `.notes/claude/asks/<slug>.txt`
    - Ligne 2 : vide
    - Ligne 3 : `Pour lancer l'analyse :`
-   - Ligne 4 : vide
-   - Ligne 5 : `/rl-analyzer:analysis .notes/claude/asks/<slug>.txt`
+   - Ligne 4 : `/rl-analyzer:analysis .notes/claude/asks/<slug>.txt`
 
 ## Regles
 

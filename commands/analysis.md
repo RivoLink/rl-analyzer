@@ -42,6 +42,21 @@ Le resultat est enregistre dans `.notes/claude/outs/` avec le meme nom que la so
    | ...      |      |            |
 
 7. Enregistrer le resultat dans le fichier de sortie.
+8. Afficher a l'utilisateur la proposition de commande suivante selon la logique :
+   - Si c'est la **premiere analyse** (le fichier de sortie n'existait pas avant cette execution) → afficher :
+     - Ligne 1 : `Pour lancer la revue :`
+     - Ligne 2 : `/rl-analyzer:review <path>`
+   - Si le fichier existait mais **ne contenait pas** de section "Rapport de revue" → afficher :
+     - Ligne 1 : `Pour lancer la revue :`
+     - Ligne 2 : `/rl-analyzer:review <path>`
+   - Si le fichier existait et contenait un "Rapport de revue" avec des **questions sans reponse** restantes → ne proposer aucune commande. Afficher :
+     - Ligne 1 : `Des questions du rapport de revue n'ont pas encore de reponse.`
+     - Ligne 2 : `Repondez aux questions dans le fichier, puis relancez :`
+     - Ligne 3 : `/rl-analyzer:analysis <path>`
+   - Si le fichier existait et contenait un "Rapport de revue" (avec incoherences resolues ou statut positif) que l'etape 3 a **supprime dans cette execution** → afficher :
+     - Ligne 1 : `Pour lancer le traitement :`
+     - Ligne 2 : `/rl-analyzer:process <path>`
+   - `<path>` est le meme parametre que celui recu par la commande.
 
 ## Regles
 
