@@ -28,7 +28,16 @@ L'analyse correspondante doit exister dans `.notes/claude/outs/`. Si elle est ab
 3. Detecter les **incoherences internes** dans l'analyse elle-meme.
 4. Detecter les **regressions potentielles** si applicable.
 5. Poser des **questions** si des zones d'ombre subsistent.
-6. Mettre a jour le fichier `*-analysis.md` pour y ajouter une section **"Rapport de revue"** contenant les incoherences et les questions identifiees.
+6. Pour chaque question, proposer **2 a 3 reponses possibles** afin de guider l'utilisateur dans son choix. L'utilisateur reste libre de choisir une proposition ou de formuler sa propre reponse dans le champ "Reponse :".
+7. Parmi les propositions, indiquer clairement celle qui est **recommandee** en ajoutant la mention `(recommande)`. Format :
+
+   **Q1 : [Intitule de la question]**
+   - a) [Proposition 1]
+   - b) [Proposition 2] **(recommande)**
+   - c) [Proposition 3]
+   **Reponse :**
+
+8. Mettre a jour le fichier `*-analysis.md` pour y ajouter une section **"Rapport de revue"** contenant les incoherences et les questions identifiees. Les incoherences restent en texte libre.
 
 ## Regles
 
