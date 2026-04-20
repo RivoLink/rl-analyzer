@@ -37,7 +37,16 @@ L'analyse correspondante doit exister dans `.notes/claude/outs/`. Si elle est ab
    - c) [Proposition 3]
    **Reponse :**
 
-8. Mettre a jour le fichier `*-analysis.md` pour y ajouter une section **"Rapport de revue"** contenant les incoherences et les questions identifiees. Les incoherences restent en texte libre.
+8. Mettre a jour le fichier `*-analysis.md` pour y ajouter une section **"Rapport de revue"** contenant les incoherences et les questions identifiees. Les incoherences restent en texte libre. Si **aucune incoherence**, aucune question et aucune regression potentielle n'est detectee, ajouter quand meme la section avec un statut positif :
+   ```
+   ## Rapport de revue
+
+   Aucune incoherence detectee. L'analyse est coherente avec la demande.
+   ```
+9. Afficher a l'utilisateur la proposition de commande suivante :
+   - Ligne 1 : `Pour relancer l'analyse :`
+   - Ligne 2 : `/rl-analyzer:analysis <path>`
+   - `<path>` est le meme parametre que celui recu par la commande.
 
 ## Regles
 

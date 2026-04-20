@@ -27,6 +27,11 @@ L'analyse correspondante doit exister dans `.notes/claude/outs/`. Si elle est ab
 3. Respecter les **normes et standards** du code existant dans le projet.
 4. Suivre les **bonnes pratiques** definies dans `.notes/claude/docs/best-practices.md` si le fichier existe.
 
+5. Afficher a l'utilisateur la proposition de commande suivante :
+   - Ligne 1 : `Pour lancer la validation :`
+   - Ligne 2 : `/rl-analyzer:validate <path>`
+   - `<path>` est le meme parametre que celui recu par la commande.
+
 ## Regles
 
 - **Modifier le code** en suivant strictement l'analyse.

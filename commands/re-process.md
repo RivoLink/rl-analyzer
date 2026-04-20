@@ -31,6 +31,11 @@ Traiter les corrections identifiees dans le rapport de validation.
 4. Respecter les **normes et standards** du code existant dans le projet.
 5. Suivre les **bonnes pratiques** definies dans `.notes/claude/docs/best-practices.md` si le fichier existe.
 
+6. Afficher a l'utilisateur la proposition de commande suivante :
+   - Ligne 1 : `Pour relancer la validation :`
+   - Ligne 2 : `/rl-analyzer:validate <path>`
+   - `<path>` est le meme parametre que celui recu par la commande.
+
 ## Regles
 
 - **Modifier le code** uniquement pour traiter les points du rapport de validation.

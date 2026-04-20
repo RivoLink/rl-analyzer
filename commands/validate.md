@@ -36,6 +36,18 @@ L'analyse correspondante doit exister dans `.notes/claude/outs/`. Si elle est ab
    - Supprimer les points resolus.
    - Conserver les points non resolus dans la version mise a jour de la section.
 
+7. Afficher a l'utilisateur la proposition de commande suivante selon la logique :
+   - Si le statut est **Valide** → ne proposer aucune commande. Afficher :
+     `Tache validee. Le flux est termine.`
+   - Si le statut est **Non valide**, evaluer la nature des problemes :
+     - **Corrections mineures** (erreurs de style, petits bugs, oublis simples, ajustements de nommage, formatage) → afficher :
+       - Ligne 1 : `Pour lancer le re-traitement :`
+       - Ligne 2 : `/rl-analyzer:re-process <path>`
+     - **Problemes majeurs** (logique incorrecte, incoherence avec la demande, approche technique a revoir, regression fonctionnelle) → afficher :
+       - Ligne 1 : `Pour relancer l'analyse :`
+       - Ligne 2 : `/rl-analyzer:analysis <path>`
+   - `<path>` est le meme parametre que celui recu par la commande.
+
 ## Regles
 
 - **Ne jamais modifier le code source.** Cette commande produit uniquement un rapport de validation.

@@ -121,8 +121,7 @@ Creer un fichier de demande a partir du prompt utilisateur.
    - Ligne 1 : `Fichier cree :` suivi du chemin `.notes/claude/asks/<slug>.txt`
    - Ligne 2 : vide
    - Ligne 3 : `Pour lancer l'analyse :`
-   - Ligne 4 : vide
-   - Ligne 5 : `/rl-analyzer analysis .notes/claude/asks/<slug>.txt`
+   - Ligne 4 : `/rl-analyzer analysis .notes/claude/asks/<slug>.txt`
 
 **Regles :**
 - **Ne jamais modifier le code source.** Cette commande ne produit qu'un fichier ask.
@@ -168,6 +167,21 @@ Analyser une demande ou une tache sans modifier le code source.
    | ...      |      |            |
 
 7. Enregistrer le resultat dans le fichier de sortie.
+8. Afficher a l'utilisateur la proposition de commande suivante selon la logique :
+   - Si c'est la **premiere analyse** (le fichier de sortie n'existait pas avant cette execution) → afficher :
+     - Ligne 1 : `Pour lancer la revue :`
+     - Ligne 2 : `/rl-analyzer review <path>`
+   - Si le fichier existait mais **ne contenait pas** de section "Rapport de revue" → afficher :
+     - Ligne 1 : `Pour lancer la revue :`
+     - Ligne 2 : `/rl-analyzer review <path>`
+   - Si le fichier existait et contenait un "Rapport de revue" avec des **questions sans reponse** restantes → ne proposer aucune commande. Afficher :
+     - Ligne 1 : `Des questions du rapport de revue n'ont pas encore de reponse.`
+     - Ligne 2 : `Repondez aux questions dans le fichier, puis relancez :`
+     - Ligne 3 : `/rl-analyzer analysis <path>`
+   - Si le fichier existait et contenait un "Rapport de revue" (avec incoherences resolues ou statut positif) que l'etape 3 a **supprime dans cette execution** → afficher :
+     - Ligne 1 : `Pour lancer le traitement :`
+     - Ligne 2 : `/rl-analyzer process <path>`
+   - `<path>` est le meme parametre que celui recu par la commande.
 
 **Regles :**
 - **Ne jamais modifier le code source.** Cette commande produit uniquement une analyse.
@@ -201,7 +215,16 @@ Effectuer une revue critique d'une analyse existante sans modifier le code sourc
    - c) [Proposition 3]
    **Reponse :**
 
-8. Mettre a jour le fichier `*-analysis.md` pour y ajouter une section **"Rapport de revue"** contenant les incoherences et les questions identifiees. Les incoherences restent en texte libre.
+8. Mettre a jour le fichier `*-analysis.md` pour y ajouter une section **"Rapport de revue"** contenant les incoherences et les questions identifiees. Les incoherences restent en texte libre. Si **aucune incoherence**, aucune question et aucune regression potentielle n'est detectee, ajouter quand meme la section avec un statut positif :
+   ```
+   ## Rapport de revue
+
+   Aucune incoherence detectee. L'analyse est coherente avec la demande.
+   ```
+9. Afficher a l'utilisateur la proposition de commande suivante :
+   - Ligne 1 : `Pour relancer l'analyse :`
+   - Ligne 2 : `/rl-analyzer analysis <path>`
+   - `<path>` est le meme parametre que celui recu par la commande.
 
 **Regles :**
 - **Ne jamais modifier le code source.** Cette commande produit uniquement une revue.
@@ -224,6 +247,11 @@ Realiser les modifications de code en suivant strictement une analyse existante.
 2. Appliquer les modifications de code decrites dans l'analyse.
 3. Respecter les **normes et standards** du code existant dans le projet.
 4. Suivre les **bonnes pratiques** definies dans `.notes/claude/docs/best-practices.md` si le fichier existe.
+
+5. Afficher a l'utilisateur la proposition de commande suivante :
+   - Ligne 1 : `Pour lancer la validation :`
+   - Ligne 2 : `/rl-analyzer validate <path>`
+   - `<path>` est le meme parametre que celui recu par la commande.
 
 **Regles :**
 - **Modifier le code** en suivant strictement l'analyse.
@@ -255,6 +283,18 @@ Effectuer une revue critique des modifications de code sans modifier le code sou
    - Supprimer les points resolus.
    - Conserver les points non resolus dans la version mise a jour de la section.
 
+7. Afficher a l'utilisateur la proposition de commande suivante selon la logique :
+   - Si le statut est **Valide** → ne proposer aucune commande. Afficher :
+     `Tache validee. Le flux est termine.`
+   - Si le statut est **Non valide**, evaluer la nature des problemes :
+     - **Corrections mineures** (erreurs de style, petits bugs, oublis simples, ajustements de nommage, formatage) → afficher :
+       - Ligne 1 : `Pour lancer le re-traitement :`
+       - Ligne 2 : `/rl-analyzer re-process <path>`
+     - **Problemes majeurs** (logique incorrecte, incoherence avec la demande, approche technique a revoir, regression fonctionnelle) → afficher :
+       - Ligne 1 : `Pour relancer l'analyse :`
+       - Ligne 2 : `/rl-analyzer analysis <path>`
+   - `<path>` est le meme parametre que celui recu par la commande.
+
 **Regles :**
 - **Ne jamais modifier le code source.** Cette commande produit uniquement un rapport de validation.
 
@@ -280,6 +320,11 @@ Traiter les corrections identifiees dans le rapport de validation.
 3. Appliquer les corrections de code necessaires.
 4. Respecter les **normes et standards** du code existant dans le projet.
 5. Suivre les **bonnes pratiques** definies dans `.notes/claude/docs/best-practices.md` si le fichier existe.
+
+6. Afficher a l'utilisateur la proposition de commande suivante :
+   - Ligne 1 : `Pour relancer la validation :`
+   - Ligne 2 : `/rl-analyzer validate <path>`
+   - `<path>` est le meme parametre que celui recu par la commande.
 
 **Regles :**
 - **Modifier le code** uniquement pour traiter les points du rapport de validation.
