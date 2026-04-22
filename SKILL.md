@@ -176,16 +176,16 @@ Analyser une demande ou une tache sans modifier le code source.
    - Si c'est la **premiere analyse** (le fichier de sortie n'existait pas avant cette execution) → afficher :
      - Ligne 1 : `Pour lancer la revue :`
      - Ligne 2 : `/rl-analyzer review <path>`
-   - Si le fichier existait mais **ne contenait pas** de section "Rapport de revue" → afficher :
-     - Ligne 1 : `Pour lancer la revue :`
-     - Ligne 2 : `/rl-analyzer review <path>`
    - Si le fichier existait et contenait un "Rapport de revue" avec des **questions sans reponse** restantes → ne proposer aucune commande. Afficher :
      - Ligne 1 : `Des questions du rapport de revue n'ont pas encore de reponse.`
      - Ligne 2 : `Repondez aux questions dans le fichier, puis relancez :`
      - Ligne 3 : `/rl-analyzer analysis <path>`
-   - Si le fichier existait et contenait un "Rapport de revue" (avec incoherences resolues ou statut positif) que l'etape 3 a **supprime dans cette execution** → afficher :
-     - Ligne 1 : `Pour lancer le traitement :`
-     - Ligne 2 : `/rl-analyzer process <path>`
+   - Sinon (analyse suivante sans questions en suspens) → afficher :
+     - Ligne 1 : `Pour relancer une revue :`
+     - Ligne 2 : `/rl-analyzer review <path>`
+     - Ligne 3 : vide
+     - Ligne 4 : `Pour lancer le traitement :`
+     - Ligne 5 : `/rl-analyzer process <path>`
    - `<path>` est le meme parametre que celui recu par la commande.
 
 **Regles :**
