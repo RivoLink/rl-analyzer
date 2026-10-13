@@ -29,20 +29,21 @@ Le resultat est enregistre dans `.notes/claude/outs/` avec le meme nom que la so
    - Si des questions n'ont pas encore de reponse, les conserver dans la section "Rapport de revue".
    - Une fois tous les points traites et toutes les questions repondues, supprimer la section "Rapport de revue" de l'analyse mise a jour.
 4. Explorer le code source du projet pour comprendre le contexte technique.
-5. Produire (ou mettre a jour) une analyse detaillee au format Markdown couvrant :
+5. Prendre en compte les **bonnes pratiques** definies dans `.notes/claude/docs/best-practices.md` si le fichier existe, afin que l'approche technique recommandee les respecte.
+6. Produire (ou mettre a jour) une analyse detaillee au format Markdown couvrant :
    - Comprehension de la demande
    - Impact sur le code existant
    - Approche technique recommandee
    - Points d'attention
-6. Ajouter en fin d'analyse une **table QA** avec trois colonnes et 10 lignes de tests :
+7. Ajouter en fin d'analyse une **table QA** avec trois colonnes et 10 lignes de tests :
 
    | Intitule | Etat | Screenshot |
    |----------|------|------------|
    | Test 1   |      |            |
    | ...      |      |            |
 
-7. Enregistrer le resultat dans le fichier de sortie.
-8. Afficher a l'utilisateur la proposition de commande suivante selon la logique :
+8. Enregistrer le resultat dans le fichier de sortie.
+9. Afficher a l'utilisateur la proposition de commande suivante selon la logique :
    - Si c'est la **premiere analyse** (le fichier de sortie n'existait pas avant cette execution) → afficher :
      - Ligne 1 : `Pour lancer la revue :`
      - Ligne 2 : `/rl-analyzer:review <path>`
